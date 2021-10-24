@@ -1,10 +1,6 @@
 import MicroClient
 
-protocol Paginating {
-    var pagination: Pagination? { get set }
-}
-
-public struct Pagination {
+public struct Pagination: Equatable {
 
     // MARK: - Properties
 
@@ -22,6 +18,18 @@ public struct Pagination {
         self.since = since
         self.after = after
         self.count = count
+    }
+
+    public static func since(id: String) -> Pagination {
+        .init(since: id)
+    }
+
+    public static func after(id: String) -> Pagination {
+        .init(after: id)
+    }
+
+    public static func count(_ count: Int) -> Pagination {
+        .init(count: count)
     }
 }
 
