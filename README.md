@@ -42,26 +42,23 @@ let bookmarksRequest = PostRequestFactory.makeBookmarksRequest(
 )
 ```
 
-The network client, which is defined by a protocol and can also be mocked/stubbed, takes a single parameter, the `request`, returning a Combine Publisher.
+The network client, which is defined by a protocol and can also be mocked/stubbed, takes a single parameter, the `request`, returning `NetworkResponse`.
 
 ```swift
 public protocol NetworkClientProtocol {
     func run<RequestModel, ResponseModel>(
         _ networkRequest: NetworkRequest<RequestModel, ResponseModel>
-    ) -> AnyPublisher<NetworkResponse<ResponseModel>, Error>
+    ) async throws -> NetworkResponse<ResponseModel>
 }
 ```
 
 E.g.:
 
 ```swift
-client
-    .run(request)
-    .sink(
-        receiveCompletion: { _ in },
-        receiveValue: { response in
-            // strongly-typed response...
-        }
-    )
-    .store(in: &cancellables)
+let request = MicropubRequestFactory.makeNewPostRequest(
+    content: "This is the body",
+    isDraft: true
+)
+
+let postResponse = try await client.run(request)
 ```
