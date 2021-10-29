@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "MicroAPI",
     platforms: [
-        .macOS(.v11), .iOS(.v13), .tvOS(.v13), .watchOS(.v6)
+        .macOS(.v12), .iOS(.v13)
     ],
     products: [
         .library(
@@ -17,7 +17,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/otaviocc/MicroClient.git",
-            from: "0.0.1"
+            from: "0.0.2"
         )
     ],
     targets: [
