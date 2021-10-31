@@ -8,6 +8,8 @@ public enum MicropubRequestFactory {
         title: String? = nil,
         content: String,
         category: String? = nil,
+        photo: URL? = nil,
+        photoDescription: String? = nil,
         isDraft: Bool = false
     ) -> NetworkRequest<VoidRequest, NewPostResponse> {
         var parameters: [String: String] = [:]
@@ -17,6 +19,8 @@ public enum MicropubRequestFactory {
         parameters["content"] = content
         parameters["post-status"] = isDraft ? "draft": nil
         parameters["category"] = category
+        parameters["photo"] = photo?.absoluteString
+        parameters["mp-photo-alt"] = photoDescription
 
         return .init(
             path: "/micropub",
@@ -25,19 +29,19 @@ public enum MicropubRequestFactory {
         )
     }
 
-    /// List of categories for the sign-in user
+    /// List of categories for the sign-in user.
     public static func makeCategoriesRequest(
     ) -> NetworkRequest<VoidRequest, CategoriesResponse> {
         .init(
             path: "/micropub",
-            method: .get
-            ,
+            method: .get,
             parameters: [
                 "q": "categories"
             ]
         )
     }
 
+    /// Retrieve the configuration.
     public static func makeConfigurationRequest(
     ) -> NetworkRequest<VoidRequest, ConfigurationResponse> {
         .init(
@@ -45,6 +49,25 @@ public enum MicropubRequestFactory {
             method: .get,
             parameters: [
                 "q": "config"
+            ]
+        )
+    }
+
+    /// Upload an image.
+    public static func makeUploadRequest(
+        media: MediaAttachment
+    ) -> NetworkRequest<Data, VoidResponse> {
+        let boundary = "MicroClient-\(UUID().uuidString)"
+
+        return .init(
+            path: "/micropub/media",
+            method: .post,
+            body: Data(
+                mediaAttachment: media,
+                boundary: boundary
+            ),
+            additionalHeaders: [
+                "Content-Type": "multipart/form-data; boundary=\(boundary)"
             ]
         )
     }

@@ -41,7 +41,7 @@ public struct MicroAPIFactory: MicroAPIFactoryProtocol {
 
     private static func makeAPIConfiguration(
     ) -> NetworkConfiguration {
-        NetworkConfiguration(
+        .init(
             session: .shared,
             defaultDecoder: JSONDecoder(),
             defaultEncoder: JSONEncoder(),
