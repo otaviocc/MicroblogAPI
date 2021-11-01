@@ -1,13 +1,13 @@
 import Foundation
 
-public enum MediaAttachment {
+public enum Media {
     case jpeg(Data?)
     case gif(Data?)
     case png(Data?)
     case other(Data?, fileExtension: String, mimeType: String)
 }
 
-extension MediaAttachment {
+extension Media {
     var data: Data? {
         switch self {
         case .jpeg(let data): return data

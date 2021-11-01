@@ -55,7 +55,7 @@ public enum MicropubRequestFactory {
 
     /// Upload an image.
     public static func makeUploadRequest(
-        media: MediaAttachment
+        media: Media
     ) -> NetworkRequest<Data, VoidResponse> {
         let boundary = "MicroClient-\(UUID().uuidString)"
 
@@ -63,7 +63,7 @@ public enum MicropubRequestFactory {
             path: "/micropub/media",
             method: .post,
             body: Data(
-                mediaAttachment: media,
+                media: media,
                 boundary: boundary
             ),
             additionalHeaders: [
