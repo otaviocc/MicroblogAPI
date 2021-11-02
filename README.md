@@ -1,8 +1,6 @@
 # MicroAPI
 
-MicroAPI is a network client written in Swift to interact with [Micro.blog](https://micro.blog)'s APIs.
-
-MicroAPI has a factory method to create the [network client](https://github.com/otaviocc/MicroClient). The factory conforms to a protocol, which allows mocking and stubbing, shall one needed it.
+**MicroAPI** is Swift Package to interact with [Micro.blog](https://micro.blog)'s endpoints. It has factory method to create a [MicroClient: µ network client](https://github.com/otaviocc/MicroClient) instance.
 
 ```swift
 public protocol MicroAPIFactoryProtocol {
@@ -12,7 +10,7 @@ public protocol MicroAPIFactoryProtocol {
 }
 ```
 
-The network client has a single parameter: `authToken: @escaping () -> String?`, where the auth token is passed to the client and is dynamically evaluated when needed (useful in those case where the network client is initialized before the user is asked to provide the token).
+The network client takes a single parameter: `authToken: @escaping () -> String?`, where the auth token is passed to the client and is dynamically evaluated when needed (useful in those case where the network client is initialized before the user is asked to provide the token).
 
 ```swift
 let factory = MicroAPIFactory()
@@ -22,7 +20,7 @@ let client = factory.makeMicroAPIClient {
 }
 ```
 
-Network requests are also built by factories, returning a strongly-typed request object:
+Network requests are also built by factories, returning strongly-typed request objects:
 
 ```swift
 // NetworkRequest<VoidRequest, DiscoveryResponse>
@@ -40,9 +38,14 @@ let photosRequest = PostRequestFactory.makePhotosTimelineRequest(
 let bookmarksRequest = PostRequestFactory.makeBookmarksRequest(
     pagination: .after(id: "42")
 )
+
+// NetworkRequest<Data, VoidResponse>
+let mediaRequest = MicropubRequestFactory.makeUploadRequest(
+    media: .jpeg(jpegData)
+)
 ```
 
-The network client, which is defined by a protocol and can also be mocked/stubbed, takes a single parameter, the `request`, returning `NetworkResponse`.
+The network client takes a single parameter, the `request`, returning `NetworkResponse`
 
 ```swift
 public protocol NetworkClientProtocol {
