@@ -3,11 +3,11 @@
     "pins": [
       {
         "package": "MicroClient",
-        "repositoryURL": "https://github.com/otaviocc/MicroClient.git",
+        "repositoryURL": "https://github.com/MicroClientSwift/MicroClient",
         "state": {
           "branch": null,
-          "revision": "4805cfd4f14aad45358ec26cbeb64abe5ef3be80",
-          "version": "0.0.3"
+          "revision": "d959c10b6160de50cfa9ef300bb45ddec607cd7b",
+          "version": "0.0.6"
         }
       }
     ]
