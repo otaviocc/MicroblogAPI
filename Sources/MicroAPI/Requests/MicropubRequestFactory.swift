@@ -7,25 +7,24 @@ public enum MicropubRequestFactory {
     public static func makeNewPostRequest(
         title: String? = nil,
         content: String,
-        category: String? = nil,
+        category: [String]? = nil,
         photo: URL? = nil,
         photoDescription: String? = nil,
         isDraft: Bool = false
     ) -> NetworkRequest<VoidRequest, NewPostResponse> {
-        var parameters: [String: String] = [:]
-
-        parameters["h"] = "entry"
-        parameters["name"] = title
-        parameters["content"] = content
-        parameters["post-status"] = isDraft ? "draft": nil
-        parameters["category"] = category
-        parameters["photo"] = photo?.absoluteString
-        parameters["mp-photo-alt"] = photoDescription
-
-        return .init(
-            path: "/micropub",
+        .init(
+            path: "/client/mQd1H2bppUvpaKFt/micropub",
             method: .post,
-            parameters: parameters
+            formItems: [
+                .init(name: "h", value: "entry"),
+                .init(name: "name", value: title),
+                .init(name: "content", value: content),
+                .init(name: "post-status", value: isDraft ? "draft": nil),
+                .init(name: "photo", value: photo?.absoluteString),
+                .init(name: "mp-photo-alt", value: photoDescription),
+            ].union(
+                with: category?.map { .init(name: "category[]", value: $0) }
+            )
         )
     }
 
@@ -35,8 +34,8 @@ public enum MicropubRequestFactory {
         .init(
             path: "/micropub",
             method: .get,
-            parameters: [
-                "q": "categories"
+            queryItems: [
+                .init(name: "q", value: "categories")
             ]
         )
     }
@@ -47,8 +46,8 @@ public enum MicropubRequestFactory {
         .init(
             path: "/micropub",
             method: .get,
-            parameters: [
-                "q": "config"
+            queryItems: [
+                .init(name: "q", value: "config")
             ]
         )
     }

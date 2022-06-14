@@ -46,7 +46,7 @@ public struct MicroAPIFactory: MicroAPIFactoryProtocol {
             defaultDecoder: JSONDecoder(),
             defaultEncoder: JSONEncoder(),
             scheme: "https",
-            hostname: "micro.blog"
+            hostname: "micropub.rocks"
         )
     }
 }

@@ -11,9 +11,9 @@ public enum PostRequestFactory {
         .init(
             path: "/posts/bookmarks",
             method: .post,
-            parameters: [
-                "id": id
-            ].union(with: pagination?.parameters)
+            queryItems: [
+                .init(name: "id", value: id)
+            ].union(with: pagination?.queryItems())
         )
     }
 
@@ -24,7 +24,7 @@ public enum PostRequestFactory {
         .init(
             path: "/posts/bookmarks",
             method: .get,
-            parameters: pagination?.parameters
+            queryItems: pagination?.queryItems()
         )
     }
 
@@ -37,8 +37,8 @@ public enum PostRequestFactory {
         .init(
             path: "/posts/check",
             method: .get,
-            parameters: [
-                "since_id": id
+            queryItems: [
+                .init(name: "since_id", value: id)
             ]
         )
     }
@@ -51,9 +51,9 @@ public enum PostRequestFactory {
         .init(
             path: "/posts/conversation",
             method: .get,
-            parameters: [
-                "id": id
-            ].union(with: pagination?.parameters)
+            queryItems: [
+                .init(name: "id", value: id)
+            ].union(with: pagination?.queryItems())
         )
     }
 
@@ -93,7 +93,7 @@ public enum PostRequestFactory {
         .init(
             path: "/posts/media",
             method: .get,
-            parameters: pagination?.parameters
+            queryItems: pagination?.queryItems()
         )
     }
 
@@ -104,7 +104,7 @@ public enum PostRequestFactory {
         .init(
             path: "/posts/mentions",
             method: .get,
-            parameters: pagination?.parameters
+            queryItems: pagination?.queryItems()
         )
     }
 
@@ -116,7 +116,7 @@ public enum PostRequestFactory {
         .init(
             path: "/posts/\(username)/photos",
             method: .get,
-            parameters: pagination?.parameters
+            queryItems: pagination?.queryItems()
         )
     }
 
@@ -127,7 +127,7 @@ public enum PostRequestFactory {
         .init(
             path: "/posts/photos",
             method: .get,
-            parameters: pagination?.parameters
+            queryItems: pagination?.queryItems()
         )
     }
 
@@ -139,7 +139,7 @@ public enum PostRequestFactory {
         .init(
             path: "/posts/\(username)",
             method: .get,
-            parameters: pagination?.parameters
+            queryItems: pagination?.queryItems()
         )
     }
 
@@ -150,7 +150,7 @@ public enum PostRequestFactory {
         .init(
             path: "/posts/replies",
             method: .get,
-            parameters: pagination?.parameters
+            queryItems: pagination?.queryItems()
         )
     }
 
@@ -162,9 +162,9 @@ public enum PostRequestFactory {
         .init(
             path: "/posts/reply",
             method: .post,
-            parameters: [
-                "id": id,
-                "content": content
+            queryItems: [
+                .init(name: "id", value: id),
+                .init(name: "content", value: content)
             ]
         )
     }
@@ -176,7 +176,7 @@ public enum PostRequestFactory {
         .init(
             path: "/posts/all",
             method: .get,
-            parameters: pagination?.parameters
+            queryItems: pagination?.queryItems()
         )
     }
 

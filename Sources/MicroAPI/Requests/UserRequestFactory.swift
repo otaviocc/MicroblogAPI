@@ -10,7 +10,9 @@ public enum UserRequestFactory {
         .init(
             path: "/users/is_following",
             method: .get,
-            parameters: ["username": username]
+            queryItems: [
+                .init(name: "username", value: username)
+            ]
         )
     }
 
@@ -41,8 +43,8 @@ public enum UserRequestFactory {
         .init(
             path: "/users/follow",
             method: .post,
-            parameters: [
-                "username": username
+            queryItems: [
+                .init(name: "username", value: username)
             ]
         )
     }
@@ -54,8 +56,8 @@ public enum UserRequestFactory {
         .init(
             path: "/users/mute",
             method: .post,
-            parameters: [
-                "username": username
+            queryItems: [
+                .init(name: "username", value: username)
             ]
         )
     }
@@ -67,8 +69,8 @@ public enum UserRequestFactory {
         .init(
             path: "/users/report",
             method: .post,
-            parameters: [
-                "username": username
+            queryItems: [
+                .init(name: "username", value: username)
             ]
         )
     }
@@ -80,8 +82,8 @@ public enum UserRequestFactory {
         .init(
             path: "/users/unfollow",
             method: .post,
-            parameters: [
-                "username": username
+            queryItems: [
+                .init(name: "username", value: username)
             ]
         )
     }

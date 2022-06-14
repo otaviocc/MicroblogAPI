@@ -1,3 +1,4 @@
+import Foundation
 import MicroClient
 
 public struct Pagination: Equatable {
@@ -34,13 +35,12 @@ public struct Pagination: Equatable {
 }
 
 extension Pagination {
-    var parameters: [String: String] {
-        var pagination: [String: String] = [:]
 
-        pagination["since_id"] = since
-        pagination["after_id"] = after
-        pagination["count"] = count.map(String.init)
-
-        return pagination
+    func queryItems() ->  [URLQueryItem] {
+        [
+            .init(name: "since_id", value: since),
+            .init(name: "after_id", value: after),
+            .init(name: "count", value: count.map(String.init)),
+        ]
     }
 }
